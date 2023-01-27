@@ -1,0 +1,97 @@
+{% extends 'base3.html' %}
+{% load static %}
+
+{% block title %}ブログ詳細 | Private Blog{% endblock %}
+
+{% block active_profile %}active{% endblock %}
+
+
+{% block contents %}
+<div class="container container2 {% if not messages %} my-div-style2 {% endif %}">
+    <div class="row">
+        <div class="col-3">
+            <strong>タイトル</strong>
+        </div>
+        <div class="col-9">
+            {{ object.title }}
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-3">
+            <strong>本文</strong>
+        </div>
+        <div class="col-9 overflow-wrap">
+            {{ object.content|linebreaksbr }}
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-3">
+            <strong>写真</strong>
+        </div>
+        <div class="col-3">
+            {% if object.photo1 %}
+            <img src="{{ object.photo1.url }}" width="200" height="200" style="object-fit: contain;"/>
+            {% endif %}
+        </div>
+        <div class="col-3">
+            {% if object.photo2 %}
+            <img src="{{ object.photo2.url }}" width="200" height="200" style="object-fit: contain;"/>
+            {% endif %}
+        </div>
+        <div class="col-3">
+            {% if object.photo3 %}
+            <img src="{{ object.photo3.url }}" width="200" height="200" style="object-fit: contain;"/>
+            {% endif %}
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-3">
+            <strong>作成日時</strong>
+        </div>
+        <div class="col-9">
+            {{ object.created_at }}
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-3">
+            <strong>更新日時</strong>
+        </div>
+        <div class="col-9">
+            {{ object.updated_at }}
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-3">
+            <strong>公開設定</strong>
+        </div>
+        <div class="col-9">
+            {% if object.release_flag == 1 %}
+            公開
+            {% elif object.release_flag == 2 %}
+            非公開
+            {% else %}
+            その他非公開
+            {% endif %}
+        </div>
+    </div>
+
+    <a class="btn btn-success mt-5 mb-3" href="{% url 'blog:blog_update' object.pk %}">編集</a>
+    <a class="btn btn-danger mt-5 ml-2 mb-3" href="{% url 'blog:blog_delete' object.pk %}">削除</a>
+    <a class="btn btn-secondary mt-5 ms-4 mb-3" href="{% url 'blog:blog_mylist'%}">戻る</a>
+</div>
+{% endblock %}
