@@ -1,0 +1,2 @@
+# django_practice_1
+Djangoの練習で作成したブログサイト
